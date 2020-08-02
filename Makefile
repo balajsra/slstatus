@@ -7,9 +7,11 @@ include config.mk
 REQ = util
 COM =\
 	components/battery\
+	components/check_updates\
 	components/cpu\
 	components/datetime\
 	components/disk\
+	components/divider\
 	components/entropy\
 	components/hostname\
 	components/ip\

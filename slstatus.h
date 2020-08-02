@@ -5,6 +5,9 @@ const char *battery_perc(const char *);
 const char *battery_state(const char *);
 const char *battery_remaining(const char *);
 
+/* check updates */
+const char *check_updates(void);
+
 /* cpu */
 const char *cpu_freq(void);
 const char *cpu_perc(void);
@@ -17,6 +20,9 @@ const char *disk_free(const char *path);
 const char *disk_perc(const char *path);
 const char *disk_total(const char *path);
 const char *disk_used(const char *path);
+
+/* divider */
+const char *divider(const char *div);
 
 /* entropy */
 const char *entropy(void);

@@ -10,6 +10,7 @@ static const char unknown_str[] = "?";
 #define MAXLEN 2048
 
 static const char battery_name[] = "BAT0";
+static const char divider_symbol[] = "|";
 
 /*
  * function            description                     argument (example)
@@ -20,6 +21,7 @@ static const char battery_name[] = "BAT0";
  *                                                     NULL on OpenBSD/FreeBSD
  * battery_remaining   battery remaining HH:MM         battery name (BAT0)
  *                                                     NULL on OpenBSD/FreeBSD
+ * check_updates       num available updates           NULL
  * cpu_perc            cpu usage in percent            NULL
  * cpu_freq            cpu frequency in MHz            NULL
  * datetime            date and time                   format string (%F %T)
@@ -27,6 +29,7 @@ static const char battery_name[] = "BAT0";
  * disk_perc           disk usage in percent           mountpoint path (/)
  * disk_total          total disk space in GB          mountpoint path (/")
  * disk_used           used disk space in GB           mountpoint path (/)
+ * divider             insert divider                  divider symbol
  * entropy             available entropy               NULL
  * gid                 GID of current user             NULL
  * hostname            hostname                        NULL
@@ -64,15 +67,24 @@ static const char battery_name[] = "BAT0";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function				format          argument */
-	{ username,				"|  %s ",		NULL },
-	{ cpu_perc,				"|  %s%% ",	NULL },
-	{ ram_perc,				"|  %s%% ",	NULL },
-	{ disk_perc,			"|  %s%% ",	"/home" },
-	{ run_command,			"|  %s ",		"checkupdates | wc -l" },
-	{ battery_state,		"|  %s",		battery_name },
+	/* function				format          argument		*/
+	{ divider,				"%s",			divider_symbol },
+	{ username,				" %s",			NULL },
+	{ divider,				"%s",			divider_symbol },
+	{ cpu_perc,				" %s%%",		NULL },
+	{ divider,				"%s",			divider_symbol },
+	{ ram_perc,				" %s%%",		NULL },
+	{ divider,				"%s",			divider_symbol },
+	{ disk_perc,			" %s%%",		"/home" },
+	{ divider,				"%s",			divider_symbol },
+	{ check_updates,		" %s",			NULL },
+	{ divider,				"%s",			divider_symbol },
+	{ battery_state,		" %s",			battery_name },
 	{ battery_perc,			"%s%%",			battery_name },
-	{ battery_remaining,	" (%s) ",		battery_name },
-	{ datetime,				"|  %s ",		"%a %x" },
-	{ datetime,				"|  %s |",		"%I:%M:%S %p" },
+	{ battery_remaining,	" (%s)",		battery_name },
+	{ divider,				"%s",			divider_symbol },
+	{ datetime,				" %s",			"%a %x" },
+	{ divider,				"%s",			divider_symbol },
+	{ datetime,				" %s",			"%I:%M:%S %p" },
+	{ divider,				"%s",			divider_symbol },
 };

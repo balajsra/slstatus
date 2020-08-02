@@ -65,7 +65,7 @@ Cleaning up the whole codebase it the goal before thinking about a release.
 
 * Change unknown string to "?"
 * Customize Status Bar
-  * User
+  * Username
   * CPU Usage
   * RAM Usage
   * Disk Usage
@@ -73,3 +73,6 @@ Cleaning up the whole codebase it the goal before thinking about a release.
   * Battery Stats
   * Date
   * Time
+* Custom Functions
+  * **check_updates** uses **run_command** to get number of packages that need to be updated
+  * **divider** prints the *divider_symbol* via a separate function rather than in the format of another function
