@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "../util.h"
@@ -114,6 +115,70 @@
 		}
 
 		return "";
+	}
+
+	const char *
+	battery_all_in_one(const char *bat)
+	{
+		char path[PATH_MAX];
+
+		// Handle case where battery isn't present
+		if (esnprintf(path, sizeof(path),
+		              "/sys/class/power_supply/%s/capacity", bat) < 0) {
+			return "";
+		}
+
+		int percentage = atoi(battery_perc(bat));
+		char *bat_icon = "";
+		char *bat_status = "";
+		char *bat_rem = "";
+		char *div = "";
+
+		// Add battery percentage icon
+		if (percentage < 20) {
+			bat_icon = "";
+		}
+		else if (percentage < 30) {
+			bat_icon = "";
+		}
+		else if (percentage < 40) {
+			bat_icon = "";
+		}
+		else if (percentage < 50) {
+			bat_icon = "";
+		}
+		else if (percentage < 60) {
+			bat_icon = "";
+		}
+		else if (percentage < 70) {
+			bat_icon = "";
+		}
+		else if (percentage < 80) {
+			bat_icon = "";
+		}
+		else if (percentage < 90) {
+			bat_icon = "";
+		}
+		else if (percentage < 100) {
+			bat_icon = "";
+		}
+		else if (percentage == 100) {
+			bat_icon = "";
+		}
+
+		if (!strcmp(battery_state(bat), "+")) {
+			bat_status = "";
+			bat_rem = "";
+		}
+		else {
+			bat_status = "";
+			
+			const char *temp = battery_remaining(bat);
+			bat_rem = (char*) malloc(sizeof(temp) + 2);
+			sprintf(bat_rem, " (%s)", temp);
+		}
+
+		return bprintf("%s %s%s %i%%%s %s ", div, bat_icon, bat_status, percentage, bat_rem, div);
 	}
 #elif defined(__OpenBSD__)
 	#include <fcntl.h>

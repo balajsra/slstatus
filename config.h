@@ -21,6 +21,7 @@ static const char divider_symbol[] = "";
  *                                                     NULL on OpenBSD/FreeBSD
  * battery_remaining   battery remaining HH:MM         battery name (BAT0)
  *                                                     NULL on OpenBSD/FreeBSD
+ * battery_all_in_one  all-in-one battery status	   battery name (BAT0)
  * check_updates       num available updates           NULL
  * cpu_perc            cpu usage in percent            NULL
  * cpu_freq            cpu frequency in MHz            NULL
@@ -76,11 +77,7 @@ static const struct arg args[] = {
 	{ ram_perc,				" %s%%",		NULL },
 	{ divider,				" %s ",			divider_symbol },
 	{ disk_perc,			" %s%%",		"/home" },
-	{ divider,				" %s ",			divider_symbol },
-	{ battery_state,		" %s",			battery_name },		// TODO: Make the battery icon change with the level and charging status
-	{ battery_perc,			"%s%%",			battery_name },
-	{ battery_remaining,	" (%s)",		battery_name },
-	{ divider,				" %s ",			divider_symbol },
+	{ battery_all_in_one, 	"%s",			battery_name, },
 	{ datetime,				" %s",			"%a %x" },
 	{ divider,				" %s ",			divider_symbol },
 	{ datetime,				" %s",			"%I:%M:%S %p" },

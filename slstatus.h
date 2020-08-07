@@ -4,6 +4,7 @@
 const char *battery_perc(const char *);
 const char *battery_state(const char *);
 const char *battery_remaining(const char *);
+const char *battery_all_in_one(const char *bat);
 
 /* check updates */
 const char *check_updates(void);
