@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
+#include <errno.h>
 
 #include "../util.h"
 
@@ -121,18 +123,28 @@
 	battery_all_in_one(const char *bat)
 	{
 		char path[PATH_MAX];
+		char *div = "";
 
-		// Handle case where battery isn't present
 		if (esnprintf(path, sizeof(path),
-		              "/sys/class/power_supply/%s/capacity", bat) < 0) {
-			return "";
+		              "/sys/class/power_supply/%s", bat) < 0) {
+			return bprintf(" %s ", div);
+		}
+
+		DIR* dir = opendir(path);
+
+		if (dir) {
+			// Battery exists
+			closedir(dir);
+		}
+		else if (ENOENT == errno) {
+			// Battery doesn't exist
+			return bprintf(" %s ", div);
 		}
 
 		int percentage = atoi(battery_perc(bat));
 		char *bat_icon = "";
 		char *bat_status = "";
 		char *bat_rem = "";
-		char *div = "";
 
 		// Add battery percentage icon
 		if (percentage < 20) {
@@ -178,7 +190,7 @@
 			sprintf(bat_rem, " (%s)", temp);
 		}
 
-		return bprintf("%s %s%s %i%%%s %s ", div, bat_icon, bat_status, percentage, bat_rem, div);
+		return bprintf(" %s %s%s %i%%%s %s ", div, bat_icon, bat_status, percentage, bat_rem, div);
 	}
 #elif defined(__OpenBSD__)
 	#include <fcntl.h>
