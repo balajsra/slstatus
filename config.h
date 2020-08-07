@@ -10,6 +10,7 @@ static const char unknown_str[] = "?";
 #define MAXLEN 2048
 
 static const char battery_name[] = "BAT0";
+static const char divider_symbol[] = "";
 
 /*
  * function            description                     argument (example)
@@ -67,23 +68,21 @@ static const char battery_name[] = "BAT0";
  */
 static const struct arg args[] = {
 	/* function				format          argument		*/
-	{ divider,				"%s",			" " },
+	{ divider,				"%s ",			divider_symbol },
 	{ check_updates,		" %s",			NULL },
-	// { gid,		" %s",			NULL },
-	{ divider,				"%s",			"  " },
+	{ divider,				" %s ",			divider_symbol },
 	{ cpu_perc,				" %s%%",		NULL },
-	{ divider,				"%s",			"  " },
+	{ divider,				" %s ",			divider_symbol },
 	{ ram_perc,				" %s%%",		NULL },
-	{ divider,				"%s",			"  " },
+	{ divider,				" %s ",			divider_symbol },
 	{ disk_perc,			" %s%%",		"/home" },
-	// { divider,				"%s",			divider_symbol },
-	{ divider,				"%s",			"  " },
+	{ divider,				" %s ",			divider_symbol },
 	{ battery_state,		" %s",			battery_name },		// TODO: Make the battery icon change with the level and charging status
 	{ battery_perc,			"%s%%",			battery_name },
 	{ battery_remaining,	" (%s)",		battery_name },
-	{ divider,				"%s",			"  " },
+	{ divider,				" %s ",			divider_symbol },
 	{ datetime,				" %s",			"%a %x" },
-	{ divider,				"%s",			"  " },
+	{ divider,				" %s ",			divider_symbol },
 	{ datetime,				" %s",			"%I:%M:%S %p" },
-	{ divider,				"%s",			" " },
+	{ divider,				" %s",			divider_symbol },
 };
