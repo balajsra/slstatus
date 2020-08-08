@@ -123,11 +123,10 @@
 	battery_all_in_one(const char *bat)
 	{
 		char path[PATH_MAX];
-		char *div = "";
 
 		if (esnprintf(path, sizeof(path),
 		              "/sys/class/power_supply/%s", bat) < 0) {
-			return bprintf(" %s ", div);
+			return " AC";
 		}
 
 		DIR* dir = opendir(path);
@@ -138,7 +137,7 @@
 		}
 		else if (ENOENT == errno) {
 			// Battery doesn't exist
-			return bprintf(" %s ", div);
+			return " AC";
 		}
 
 		int percentage = atoi(battery_perc(bat));
@@ -179,7 +178,7 @@
 		}
 
 		if (!strcmp(battery_state(bat), "+")) {
-			bat_status = "";
+			bat_status = " ";
 			bat_rem = "";
 		}
 		else {
@@ -190,7 +189,7 @@
 			sprintf(bat_rem, " (%s)", temp);
 		}
 
-		return bprintf(" %s %s%s %i%%%s %s ", div, bat_icon, bat_status, percentage, bat_rem, div);
+		return bprintf(" %s%s %i%%%s ", bat_status, bat_icon, percentage, bat_rem);
 	}
 #elif defined(__OpenBSD__)
 	#include <fcntl.h>

@@ -10,7 +10,7 @@ static const char unknown_str[] = "?";
 #define MAXLEN 2048
 
 static const char battery_name[] = "BAT0";
-static const char divider_symbol[] = "";
+static const char divider_symbol[] = "|";
 
 /*
  * function            description                     argument (example)
@@ -77,7 +77,9 @@ static const struct arg args[] = {
 	{ ram_perc,				" %s%%",		NULL },
 	{ divider,				" %s ",			divider_symbol },
 	{ disk_perc,			" %s%%",		"/home" },
+	{ divider,				" %s ",			divider_symbol },
 	{ battery_all_in_one, 	"%s",			battery_name, },
+	{ divider,				" %s ",			divider_symbol },
 	{ datetime,				" %s",			"%a %x" },
 	{ divider,				" %s ",			divider_symbol },
 	{ datetime,				" %s",			"%I:%M:%S %p" },
