@@ -55,6 +55,7 @@
 		} map[] = {
 			{ "Charging",    "+" },
 			{ "Discharging", "-" },
+			{ "Full", 		 "=" },
 		};
 		size_t i;
 		char path[PATH_MAX], state[12];
@@ -177,16 +178,16 @@
 			bat_icon = "";
 		}
 
-		if (!strcmp(battery_state(bat), "+")) {
-			bat_status = " ";
-			bat_rem = "";
-		}
-		else {
+		if (!strcmp(battery_state(bat), "-")) {
 			bat_status = "";
 			
 			const char *temp = battery_remaining(bat);
 			bat_rem = (char*) malloc(sizeof(temp) + 2);
 			sprintf(bat_rem, " (%s)", temp);
+		}
+		else {
+			bat_status = " ";
+			bat_rem = "";
 		}
 
 		return bprintf(" %s%s %i%%%s ", bat_status, bat_icon, percentage, bat_rem);
